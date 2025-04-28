@@ -12,10 +12,20 @@ import { Label } from '@/components/ui/label'
 import { Checkbox } from '@/components/ui/checkbox'
 import { ref } from 'vue'
 import { EyeIcon, EyeOffIcon } from 'lucide-vue-next'
+import { useRouter } from 'vue-router'
 
+const router = useRouter()
 const showPassword = ref(false)
+const isSocialLogin = ref(false)
+
 const togglePasswordVisibility = () => {
   showPassword.value = !showPassword.value
+}
+
+const handleSocialLogin = (provider: string) => {
+  // 소셜 로그인 로직 처리
+  console.log(`${provider} 로그인 처리 중...`)
+  isSocialLogin.value = true
 }
 </script>
 
@@ -34,15 +44,15 @@ const togglePasswordVisibility = () => {
         <form>
           <div class="grid gap-6">
             <div class="grid grid-cols-3 gap-4">
-              <Button variant="outline" class="w-full">
+              <Button type="button" variant="outline" class="w-full" @click="handleSocialLogin('kakao')">
                 <img src="/assets/kakao-icon.svg" alt="Kakao" />
                 <span class="sr-only">Login with Kakao</span>
               </Button>
-              <Button variant="outline" class="w-full">
+              <Button type="button" variant="outline" class="w-full" @click="handleSocialLogin('google')">
                 <img src="/assets/google-icon.svg" alt="Google" />
                 <span class="sr-only">Login with Google</span>
               </Button>
-              <Button variant="outline" class="w-full">
+              <Button type="button" variant="outline" class="w-full" @click="handleSocialLogin('github')">
                 <img src="/assets/github-icon.svg" alt="Github" />
                 <span class="sr-only">Login with Github</span>
               </Button>
@@ -59,7 +69,7 @@ const togglePasswordVisibility = () => {
                   id="email"
                   type="email"
                   placeholder="이메일을 입력하세요."
-                  required
+                  :required="!isSocialLogin"
                 />
               </div>
               <div class="grid gap-2">
@@ -67,7 +77,7 @@ const togglePasswordVisibility = () => {
                   <Label html-for="password">비밀번호</Label>
                   <a
                     href="#"
-                    class="ml-auto text-sm underline underline-offset-4 text-muted-foreground"
+                    class="ml-auto text-sm underline underline-offset-4 text-muted-foreground hover:text-primary"
                   >
                     비밀번호를 잊으셨나요?
                   </a>
@@ -77,7 +87,7 @@ const togglePasswordVisibility = () => {
                     id="password" 
                     :type="showPassword ? 'text' : 'password'" 
                     placeholder="비밀번호를 입력하세요." 
-                    required 
+                    :required="!isSocialLogin" 
                   />
                   <Button 
                     type="button" 
@@ -101,13 +111,13 @@ const togglePasswordVisibility = () => {
                   로그인 정보 저장
                 </label>
               </div>
-              <Button type="submit" class="w-full">
+              <Button type="submit" class="w-full bg-blue-600 hover:bg-blue-500 text-white">
                 로그인
               </Button>
             </div>
             <div class="text-center text-sm">
               계정이 없으신가요?
-              <a href="#" class="underline underline-offset-4 text-muted-foreground">
+              <a href="#" @click.prevent="router.push('/signup')" class="underline underline-offset-4 text-muted-foreground hover:text-primary">
                 회원가입
               </a>
             </div>
