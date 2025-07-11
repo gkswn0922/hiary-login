@@ -7,8 +7,10 @@ import {
   CardTitle,
 } from '@/components/ui/card'
 import { ref } from 'vue'
+import { useRoute } from 'vue-router'
 
-const email = ref('example@email.com') // 실제로는 라우트 파라미터나 상태에서 가져올 것입니다
+const route = useRoute()
+const email = ref(route.query.email || '')
 const isResending = ref(false)
 
 const handleResendEmail = () => {

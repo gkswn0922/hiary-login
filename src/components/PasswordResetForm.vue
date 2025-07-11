@@ -23,10 +23,15 @@ const isEmailValid = computed(() => {
 
 const handleResetPassword = () => {
   // 비밀번호 재설정 이메일 전송 로직
-  console.log('비밀번호 재설정 이메일 전송 중...')
+  console.log('입력된 이메일:', email.value)
   
   // 실제 구현에서는 API 호출 후 응답에 따라 처리
-  router.push('/password-reset/verification')
+    router.push({
+      // name: 'PasswordReset',
+      path: '/password-reset/verification',
+      query: { email: email.value }
+    })
+  // router.push('/password-reset/verification')
 }
 </script>
 

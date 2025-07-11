@@ -4,6 +4,18 @@ export const description = '대시보드 페이지'
 
 <script setup lang="ts">
 import { Button } from '@/components/ui/button'
+import { onAuthStateChanged,getAuth } from 'firebase/auth'
+
+const auth = getAuth()
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    console.log('로그인된 사용자:', user)
+    // 대시보드에서 user.displayName, user.email 등 사용 가능
+  } else {
+    console.log('로그아웃 상태')
+    // 로그인 화면으로 리디렉션
+  }
+})
 </script>
 
 <template>

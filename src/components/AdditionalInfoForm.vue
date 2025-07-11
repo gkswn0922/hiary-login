@@ -106,7 +106,7 @@ const handleContinue = () => {
     })
     
     // 대시보드로 이동
-    router.push('/dashboard')
+    // router.push('/dashboard')
   }
 }
 
