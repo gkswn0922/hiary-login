@@ -12,7 +12,7 @@ import { Label } from '@/components/ui/label'
 import { ref, computed } from 'vue'
 import { EyeIcon, EyeOffIcon, CheckIcon } from 'lucide-vue-next'
 import { useRouter } from 'vue-router'
-import { createUserWithEmailAndPassword } from 'firebase/auth'
+import { createUserWithEmailAndPassword, sendEmailVerification } from 'firebase/auth'
 import { auth } from '@/components/firebase'
 
 const router = useRouter()
@@ -43,11 +43,15 @@ const isPasswordValid = computed(() =>
   hasNumberOrSpecial.value
 )
 
-const handleContinue = () => {
+const handleContinue = async () => {
   // 회원가입 계속 처리 로직
   console.log('이메일 회원가입 처리 중...')
 
-  createUserWithEmailAndPassword(auth, email.value, password.value)
+  const userCredential = await createUserWithEmailAndPassword(auth, email.value, password.value)
+  const user = userCredential.user;
+
+  // 이메일 인증 메일 전송
+  await sendEmailVerification(user);
   
   // 서버에 회원가입 요청 후 이메일 인증 페이지로 리다이렉트
   // 실제 구현에서는 API 호출 후 응답에 따라 리다이렉트

@@ -29,7 +29,7 @@ const googleLogin = () => {
 const handleLoginSuccess = (response) => {
   debugger
   console.log('✅ 로그인 성공:', response)
-  window.location.href = 'http://localhost:5173/dashboard';
+  // window.location.href = 'http://localhost:5173/dashboard';
   // response.credential 로 토큰 획득 가능
 }
 
@@ -92,7 +92,7 @@ const loginEvent = async () => {
   try {
     const userCredential = await signInWithEmailAndPassword(auth, email.value, password.value);
     console.log('✅ 로그인 성공:', userCredential.user);
-    router.push('/dashboard');
+    router.push('/blog');
   } catch (error) {
     console.error('❌ 로그인 실패:', error.code, error.message);
 

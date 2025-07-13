@@ -1,13 +1,16 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import BlogList from '@/modules/blog/views/BlogHome.vue'
+import TILView from '@/modules/blog/views/TILView.vue'
+import SeriesView from '@/modules/blog/views/SeriesView.vue'
 
 const routes = [
+  // {
+  //   path: '/',
+  //   name: 'home',
+  //   component: () => import('@/pages/home/index.vue')
+  // },
   {
     path: '/',
-    name: 'home',
-    component: () => import('@/pages/home/index.vue')
-  },
-  {
-    path: '/login',
     name: 'login',
     component: () => import('@/pages/login/index.vue')
   },
@@ -55,7 +58,10 @@ const routes = [
     path: '/password-reset/complete',
     name: 'password-reset-complete',
     component: () => import('@/pages/password-reset/complete/index.vue')
-  }
+  },
+  { path: '/blog', component: BlogList },
+  { path: '/til', component: TILView },
+  { path: '/series', component: SeriesView },
 ]
 
 const router = createRouter({
